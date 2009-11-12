@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.homepage        = "http://github.com/macournoyer/talker.rb"
   s.require_paths   = ["lib"]
   s.bindir          = "bin"
-  s.executables     = "talker"
+  s.executables     = Dir["bin/*"].map { |f| File.basename(f) }
   s.summary         = "A real-time Talker Ruby client."
   s.test_files      = Dir["spec/**"]
   
