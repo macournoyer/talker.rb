@@ -4,11 +4,11 @@ Gem::Specification.new do |s|
  
   s.authors         = ["Marc-Andre Cournoyer"]
   s.email           = "macournoyer@talkerapp.com"
-  s.files           = Dir["*/**"]
+  s.files           = Dir["**/*"]
   s.homepage        = "http://github.com/macournoyer/talker.rb"
   s.require_paths   = ["lib"]
   s.bindir          = "bin"
-  s.executables     = "talker"
+  s.executables     = ["talker-cat", "talker-shell"]
   s.summary         = "A real-time Talker Ruby client."
   s.test_files      = Dir["spec/**"]
   
