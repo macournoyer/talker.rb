@@ -1,27 +1,24 @@
 #!/usr/bin/env ruby
 require "talker"
+require "talker/cli"
 
-token_path = File.join(ENV['HOME'], '.talker')
-token = File.read(token_path).strip
+token = Talker::CLI.load_token
 room = ARGV.first
 
 abort <<-EOS unless room
 usage: echo 'something' | talker <room_id>
-  
-  Place your Talker Token in #{token_path}. You can find your
-  token in https://myaccount.talkerapp.com/settings
 
-  Room ID is the last part of the URL:
-    https://myaccount.talkerapp.com/rooms/<room_id>
-  
   Send a message to a room:
   
-    echo 'something' | talker <room_id>
+    echo 'something' | talker 1
   
   Send a file to a room:
   
-    talker <room_id> < site_fixer.rb
-
+    talker 1 < site_fixer.rb
+  
+  Room ID is the last part of the URL:
+    https://myaccount.talkerapp.com/rooms/<room_id>
+  
 EOS
 
 Talker.connect(:room => room, :token => token) do |client|

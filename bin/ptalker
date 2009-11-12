@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+require "talker"
+require "talker/cli"
+
+token = Talker::CLI.load_token
+room, cmd, process_name = *ARGV
+process_name ||= cmd
+
+abort <<-EOS unless room && cmd
+usage: ptalker <room_id> <command> [name]
+  Launch an irb session connected to a room:
+  
+    ptalker 1 irb
+  
+  Room ID is the last part of the URL:
+    https://myaccount.talkerapp.com/rooms/<room_id>
+  
+EOS
+
+
+module Process
+  attr_accessor :name, :client
+  
+  def receive_data(data)
+    log data
+  end
+  
+  def unbind
+    log "exited"
+    @client.close
+  end
+  
+  def log(msg)
+    puts "> #{msg}"
+    @client.send_message("#{name}> #{msg}")
+  end
+end
+
+
+EM.run do
+  Talker.connect(:room => room, :token => token) do |client|
+    @process = nil
+    
+    client.on_connected do
+      EM.popen(cmd, Process) do |process|
+        client.send_message "Connected to process: #{cmd}, prefix commands w/ '#{process_name}: '"
+
+        process.name = process_name
+        process.client = client
+        trap("INT") { process.close_connection_after_writing }
+
+        @process = process
+      end
+    end
+    
+    client.on_message do |user, message|
+      if command = message[/^#{process_name}: (.*)$/, 1]
+        puts "> #{cmd}"
+        @process.send_data command + "\n"
+      end
+    end
+    
+    client.on_error do |error|
+      puts error
+    end
+    
+    client.on_close do
+      EM.stop
+    end
+  end
+end
