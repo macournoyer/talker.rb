@@ -1,0 +1,7 @@
+# Get your Talker Token on https://myaccount.talkerapp.com/settings
+token: YOUR_TALKER_TOKEN
+# Room ID is the last part of the URL:
+#   https://myaccount.talkerapp.com/rooms/<room_id>
+room: ROOM_ID
+# Make sure it matches or some specs will fail
+user_name: YOUR_USER_NAME
