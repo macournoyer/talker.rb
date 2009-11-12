@@ -7,10 +7,10 @@ room, cmd, process_name = *ARGV
 process_name ||= cmd
 
 abort <<-EOS unless room && cmd
-usage: ptalker <room_id> <command> [name]
+usage: talker-shell <room_id> <command> [name]
   Launch an irb session connected to a room:
   
-    ptalker 1 irb
+    talker-shell 1 irb
   
   Room ID is the last part of the URL:
     https://myaccount.talkerapp.com/rooms/<room_id>

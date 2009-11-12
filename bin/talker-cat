@@ -6,15 +6,15 @@ token = Talker::CLI.load_token
 room = ARGV.first
 
 abort <<-EOS unless room
-usage: echo 'something' | talker <room_id>
+usage: echo 'something' | talker-cat <room_id>
 
   Send a message to a room:
   
-    echo 'something' | talker 1
+    echo 'something' | talker-cat 1
   
   Send a file to a room:
   
-    talker 1 < site_fixer.rb
+    talker-cat 1 < site_fixer.rb
   
   Room ID is the last part of the URL:
     https://myaccount.talkerapp.com/rooms/<room_id>
