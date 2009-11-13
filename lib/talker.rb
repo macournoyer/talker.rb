@@ -6,7 +6,7 @@ class Talker < EM::Connection
   
   class Error < RuntimeError; end
   
-  attr_accessor :room, :token, :thread
+  attr_accessor :room, :token, :thread, :current_user
   
   def self.connect(options={})
     host = options[:host] || "talkerapp.com"
@@ -98,6 +98,7 @@ class Talker < EM::Connection
       
       case event["type"]
       when "connected"
+        @current_user = event["user"]
         trigger :connected, event["user"]
       when "error"
         if @on_error

@@ -69,6 +69,11 @@ Called when any kind of event (all of the above) is received. "event" is a Hash:
 # Methods
 Methods of an instance of Talker class.
 
+## <code>current_user</code>
+Info about the user currently connected, <code>nil</code> if not yet connected:
+
+    {"id"=>1, "name"=>"macournoyer", "email"=>"macournoyer@talkerapp.com"}
+
 ## <code>users</code>
 Array of users currently in the room. In the form:
 
