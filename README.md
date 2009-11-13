@@ -27,8 +27,8 @@ A real-time Talker Ruby client.
 # Callbacks
 All arguments are optional.
 
-## <code>on_connected</code>
-Called when the user is authenticated and ready to receive events.
+## <code>on_connected(user)</code>
+Called when the user is authenticated and ready to receive events. "user" is a Hash containing your user info: <code>{"id"=>1, "name"=>"macournoyer", "email"=>"macournoyer@talkerapp.com"}</code>.
 
 ## <code>on_presence(users)</code>
 Called after <code>on_connected</code> with the list of connected users.

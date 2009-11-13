@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + "/spec_helper"
 EM.describe Talker do
   it "should connect" do
     connect do |client|
-      client.on_connected do
+      client.on_connected do |user|
+        user["name"].should == TALKER_CONFIG["user_name"]
         done
       end
     end

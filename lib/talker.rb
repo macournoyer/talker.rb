@@ -98,7 +98,7 @@ class Talker < EM::Connection
       
       case event["type"]
       when "connected"
-        trigger :connected
+        trigger :connected, event["user"]
       when "error"
         if @on_error
           @on_error.call(event["message"])
