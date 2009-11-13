@@ -16,18 +16,16 @@ class Talker < EM::Connection
     
     thread = Thread.new { EM.run } unless EM.reactor_running?
     
-    conn = EM.connect host, port, self do |c|
+    connection = EM.connect host, port, self do |c|
       c.thread = thread
       c.room = room
       c.token = token
       yield c if block_given?
     end
     
-    if thread.nil?
-      conn
-    else
-      thread.join
-    end
+    thread.join if thread
+    
+    connection
   end
   
   def initialize
