@@ -127,7 +127,7 @@ class Talker < EM::Connection
     
     def trigger(callback, *args)
       callback = instance_variable_get(:"@on_#{callback}")
-      callback.call(*args[0,callback.arity]) if callback
+      callback.call(*args) if callback
     end
     
     def send(data)
