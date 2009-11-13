@@ -47,8 +47,16 @@ EM.describe Talker do
       client.on_presence do
         client.send_private_message TALKER_CONFIG["user_name"], "private magic"
       end
-      client.on_message do |user, message|
+      client.on_private_message do |user, message|
         message.should == "private magic"
+        done
+      end
+    end
+  end
+  
+  it "should receive events" do
+    connect do |client|
+      client.on_event do
         done
       end
     end

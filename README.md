@@ -37,9 +37,13 @@ With <code>users</code> being something like this:
     [{"id"=>1, "name"=>"macournoyer", "email"=>"macournoyer@talkerapp.com"},
      {"id"=>2, "name"=>"gary", "email"=>"gary@talkerapp.com"}]
 
-## <code>on_message(user, message, event)</code>
+## <code>on_message(user, message)</code>
 Called when a new message is received.
-<code>user</code> is the sender. <code>event</code> contains the full event sent by the server.
+<code>user</code> is the sender.
+
+## <code>on_private_message(user, message)</code>
+Called when a new private message is received.
+<code>user</code> is the sender.
 
 ## <code>on_join(user)</code>
 Called when a user joins the room.
@@ -57,7 +61,10 @@ Called when a user leaves.
 Called when the connection is closed.
 
 ## <code>on_error(error_message)</code>
-Called an error is received from the Talker server.
+Called when an error is received from the Talker server.
+
+## <code>on_event(event)</code>
+Called when any kind of event (all of the above) is received. "event" is a Hash: <code>{"type":"event type",... event specific attributes}</code>.
 
 # Methods
 Methods of an instance of Talker class.
