@@ -38,7 +38,7 @@ end
 
 
 EM.run do
-  Talker.connect(:room => room, :token => token) do |client|
+  Talker.connect(:room => room.to_i, :token => token) do |client|
     @process = nil
     
     client.on_connected do

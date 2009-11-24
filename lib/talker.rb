@@ -6,20 +6,17 @@ class Talker < EM::Connection
   
   class Error < RuntimeError; end
   
-  attr_accessor :room, :token, :thread, :current_user
+  attr_accessor :connect_options, :thread, :current_user
   
   def self.connect(options={})
-    host = options[:host] || "talkerapp.com"
-    port = (options[:port] || 8500).to_i
-    room = options[:room].to_i
-    token = options[:token]
-    
+    host = options.delete(:host) || "talkerapp.com"
+    port = (options.delete(:port) || 8500).to_i
+
     thread = Thread.new { EM.run } unless EM.reactor_running?
     
     connection = EM.connect host, port, self do |c|
       c.thread = thread
-      c.room = room
-      c.token = token
+      c.connect_options = options
       yield c if block_given?
     end
     
@@ -75,7 +72,7 @@ class Talker < EM::Connection
   ## EventMachine callbacks
   
   def connection_completed
-    send :type => "connect", :room => @room, :token => @token
+    send @connect_options.merge(:type => "connect")
     EM.add_periodic_timer(20) { send :type => "ping" }
   end
   

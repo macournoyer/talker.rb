@@ -21,7 +21,7 @@ usage: echo 'something' | talker-cat <room_id>
   
 EOS
 
-Talker.connect(:room => room, :token => token) do |client|
+Talker.connect(:room => room.to_i, :token => token) do |client|
   client.on_connected do
     client.send_message STDIN.read
     client.close

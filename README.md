@@ -64,7 +64,7 @@ Called when the connection is closed.
 Called when an error is received from the Talker server.
 
 ## <code>on_event(event)</code>
-Called when any kind of event (all of the above) is received. "event" is a Hash: <code>{"type":"event type",... event specific attributes}</code>.
+Called when any kind of event (all of the above) is received. "event" is a Hash: <code>{"type":"event type","id":"unique ID",... event specific attributes}</code>.
 
 # Methods
 Methods of an instance of Talker class.
