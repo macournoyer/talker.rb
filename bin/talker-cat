@@ -21,12 +21,29 @@ usage: echo 'something' | talker-cat <room_id>
   
 EOS
 
+# Non-blocking reader for stdin
+module Reader
+  attr_accessor :client
+  
+  def notify_readable
+    @client.send_message @io.readline.chomp
+  rescue EOFError
+    detach
+  end
+  
+  def unbind
+    @client.close
+  end
+end
+
 Talker.connect(:room => room.to_i, :token => token) do |client|
   client.on_connected do
-    client.send_message STDIN.read
-    client.close
+    conn = EM.watch STDIN, Reader
+    conn.client = client
+    conn.notify_readable = true
   end
   client.on_error do |error|
     puts error
   end
+  trap("INT") { client.close }
 end
