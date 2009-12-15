@@ -22,7 +22,7 @@ module Process
   attr_accessor :name, :client
   
   def receive_data(data)
-    log data
+    log data.chomp
   end
   
   def unbind
