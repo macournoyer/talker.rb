@@ -7,13 +7,11 @@ room, cmd, process_name = *ARGV
 process_name ||= cmd
 
 abort <<-EOS unless room && cmd
-usage: talker-shell <room_id> <command> [name]
+usage: talker-shell <room name> <command> [name]
+
   Launch an irb session connected to a room:
   
-    talker-shell 1 irb
-  
-  Room ID is the last part of the URL:
-    https://myaccount.talkerapp.com/rooms/<room_id>
+    talker-shell Main irb
   
 EOS
 
@@ -38,7 +36,7 @@ end
 
 
 EM.run do
-  Talker.connect(:room => room.to_i, :token => token) do |client|
+  Talker.connect(:room => room, :token => token) do |client|
     @process = nil
     
     client.on_connected do
