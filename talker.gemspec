@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name            = "talker"
-  s.version         = "0.0.2"
+  s.version         = "0.0.3"
  
   s.authors         = ["Marc-Andre Cournoyer"]
   s.email           = "macournoyer@talkerapp.com"
