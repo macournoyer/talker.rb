@@ -6,13 +6,9 @@ A real-time Talker Ruby client.
 
 2) Get your Talker Token on https://myaccount.talkerapp.com/settings
 
-3) Find the Room ID you want to connect to. This is the last part of the URL:
+3) Serve hot and enjoy
 
-     https://myaccount.talkerapp.com/rooms/<room_id>
-
-4) Serve hot and enjoy
-
-    Talker.connect(:room => ROOM_ID, :token => YOUR_TALKER_TOKEN) do |client|
+    Talker.connect(:room => "Room name", :token => YOUR_TALKER_TOKEN) do |client|
       client.on_connected do
         client.send_message "hello!"
       end
