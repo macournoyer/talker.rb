@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require "talker"
+require "talker/client"
 require "talker/cli"
 
 token = Talker::CLI.load_token
@@ -36,7 +36,7 @@ end
 
 
 EM.run do
-  Talker.connect(:room => room, :token => token) do |client|
+  Talker::Client.connect(:room => room, :token => token) do |client|
     @process = nil
     
     client.on_connected do

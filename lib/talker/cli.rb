@@ -1,4 +1,4 @@
-class Talker
+module Talker
   class CLI
     def self.load_token
       token_path = File.join(ENV['HOME'], '.talker')

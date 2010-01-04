@@ -2,7 +2,7 @@ require "rubygems"
 require "yaml"
 require 'spec'
 $:.unshift File.dirname(__FILE__) + "/../lib"
-require "talker"
+require "talker/client"
 
 # Installing em-spec from http://github.com/macournoyer/em-spec
 require 'em/spec'
@@ -13,7 +13,7 @@ TALKER_CONFIG = YAML.load_file(File.dirname(__FILE__) + "/talker.yml")
 
 module Helpers
   def connect(&callback)
-    Talker.connect :room => TALKER_CONFIG["room"].to_i, :token => TALKER_CONFIG["token"], &callback
+    Talker::Client.connect :room => TALKER_CONFIG["room"].to_i, :token => TALKER_CONFIG["token"], &callback
   end
 end
 
