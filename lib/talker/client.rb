@@ -12,10 +12,12 @@ module Talker
     def self.connect(options={})
       host = options.delete(:host) || "talkerapp.com"
       port = (options.delete(:port) || 8500).to_i
+      ssl = option[:ssl] != false
       
       thread = Thread.new { EM.run } unless EM.reactor_running?
       
       connection = EM.connect host, port, self do |c|
+        c.start_tls if ssl
         c.thread = thread
         c.connect_options = options
         yield c if block_given?
