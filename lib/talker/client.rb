@@ -45,6 +45,10 @@ module Talker
       @users.values
     end
     
+    def send(data)
+      send_data Yajl::Encoder.encode(data) + "\n"
+    end
+    
     def send_message(message, attributes={})
       send({ :type => "message", :content => message }.merge(attributes))
     end
@@ -130,8 +134,6 @@ module Talker
           else
             trigger :message, event["user"], event["content"]
           end
-        else
-          raise Error, "unknown event type received from server: " + event["type"]
         end
       
       rescue
@@ -142,10 +144,6 @@ module Talker
       def trigger(callback, *args)
         callback = instance_variable_get(:"@on_#{callback}")
         callback.call(*args) if callback
-      end
-      
-      def send(data)
-        send_data Yajl::Encoder.encode(data) + "\n"
       end
   end
 end
