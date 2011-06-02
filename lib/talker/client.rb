@@ -46,7 +46,7 @@ module Talker
     end
     
     def send(data)
-      send_data Yajl::Encoder.encode(data) + "\n"
+      send_data @encoder.encode(data)
     end
     
     def send_message(message, attributes={})
@@ -86,6 +86,8 @@ module Talker
     def post_init
       @parser = Yajl::Parser.new
       @parser.on_parse_complete = method(:event_parsed)
+
+      @encoder = Yajl::Encoder.new(:terminator => "\n")
     end
     
     def receive_data(data)
